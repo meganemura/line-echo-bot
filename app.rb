@@ -24,7 +24,7 @@ post '/callback' do
   receive_request.data.each { |message|
     case message.content
     # Line::Bot::Receive::Message
-    when Line::Bot::Message::Text
+    when Line::Bot::Message::Text, Line::Bot::Message::Sticker
       client.send_text(
         to_mid: message.from_mid,
         text: message.inspect
