@@ -27,7 +27,7 @@ post '/callback' do
     when Line::Bot::Message::Text
       client.send_text(
         to_mid: message.from_mid,
-        text: message.content[:text],
+        text: message.inspect
       )
     # Line::Bot::Receive::Operation
     when Line::Bot::Operation::AddedAsFriend
