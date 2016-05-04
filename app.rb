@@ -10,7 +10,7 @@ end
 
 post '/callback' do
   signature = request.env['HTTP_X_LINE_CHANNELSIGNATURE']
-  unless client.validate_signature(request.body.read, signature)
+  unless Linebot.client.validate_signature(request.body.read, signature)
     error 400 do 'Bad Request' end
   end
 
@@ -19,14 +19,19 @@ post '/callback' do
   receive_request.data.each { |message|
     case message.content
     # Line::Bot::Receive::Message
-    when Line::Bot::Message::Text, Line::Bot::Message::Sticker
-      client.send_text(
+    when Line::Bot::Message::Text
+      Linebot.client.send_text(
         to_mid: message.from_mid,
         text: message.inspect
       )
+    when Line::Bot::Message::Sticker
+      Linebot.client.send_text(
+        to_mid: message.from_mid,
+        text: Linebot.splatoon_stage
+      )
     # Line::Bot::Receive::Operation
     when Line::Bot::Operation::AddedAsFriend
-      client.send_sticker(
+      Linebot.client.send_sticker(
         to_mid: message.from_mid,
         stkpkgid: 2,
         stkid: 144,
