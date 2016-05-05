@@ -21,6 +21,6 @@ module Linebot
 
     result = result['result'].first
 
-    message = "#{result['rule']}\n#{result['maps'].join('/')}"
+    message = "【#{result['rule']}】\n#{result['maps'].map {|x| "* #{x}" }.join("\n")}"
   end
 end
