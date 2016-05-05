@@ -5,5 +5,6 @@ ruby '2.2.4'
 gem 'sinatra'
 gem 'line-bot-api'
 gem 'redis'
+gem 'ruboty'
 
 gem 'pry', :group => :development
